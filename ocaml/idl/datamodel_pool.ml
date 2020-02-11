@@ -407,7 +407,7 @@ open Datamodel_types
       ~in_oss_since:None
       ~in_product_since:rel_george
       ~name:"certificate_install"
-      ~doc:"Install an SSL certificate pool-wide."
+      ~doc:"Install a TLS CA certificate, pool-wide."
       ~params:[String, "name", "A name to give the certificate";
                String, "cert", "The certificate"]
       ~allowed_roles:_R_POOL_OP
@@ -417,7 +417,7 @@ open Datamodel_types
       ~in_oss_since:None
       ~in_product_since:rel_george
       ~name:"certificate_uninstall"
-      ~doc:"Remove an SSL certificate."
+      ~doc:"Remove a pool-wide TLS CA certificate."
       ~params:[String, "name", "The certificate name"]
       ~allowed_roles:_R_POOL_OP
       ()
@@ -426,7 +426,7 @@ open Datamodel_types
       ~in_oss_since:None
       ~in_product_since:rel_george
       ~name:"certificate_list"
-      ~doc:"List all installed SSL certificates."
+      ~doc:"List the names of all installed TLS CA certificates."
       ~result:(Set(String),"All installed certificates")
       ~allowed_roles:_R_POOL_OP
       ()
@@ -435,7 +435,7 @@ open Datamodel_types
       ~in_oss_since:None
       ~in_product_since:rel_george
       ~name:"crl_install"
-      ~doc:"Install an SSL certificate revocation list, pool-wide."
+      ~doc:"Install an TLS Certificate Revocation List, pool-wide."
       ~params:[String, "name", "A name to give the CRL";
                String, "cert", "The CRL"]
       ~allowed_roles:_R_POOL_OP
@@ -445,7 +445,7 @@ open Datamodel_types
       ~in_oss_since:None
       ~in_product_since:rel_george
       ~name:"crl_uninstall"
-      ~doc:"Remove an SSL certificate revocation list."
+      ~doc:"Remove a pool-wide TLS Certificate Revocation List."
       ~params:[String, "name", "The CRL name"]
       ~allowed_roles:_R_POOL_OP
       ()
@@ -454,8 +454,8 @@ open Datamodel_types
       ~in_oss_since:None
       ~in_product_since:rel_george
       ~name:"crl_list"
-      ~doc:"List all installed SSL certificate revocation lists."
-      ~result:(Set(String), "All installed CRLs")
+      ~doc:"List the names of all installed TLS Certificate Revocation Lists."
+      ~result:(Set(String), "The names of all installed CRLs")
       ~allowed_roles:_R_POOL_OP
       ()
 
@@ -463,7 +463,7 @@ open Datamodel_types
       ~in_oss_since:None
       ~in_product_since:rel_george
       ~name:"certificate_sync"
-      ~doc:"Sync SSL certificates from master to slaves."
+      ~doc:"Copy the TLS CA certificates and CRLs of the master to the slaves."
       ~allowed_roles:_R_POOL_OP
       ()
 
