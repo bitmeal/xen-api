@@ -197,6 +197,12 @@ let get_product_releases in_product_since =
     | x::xs -> go_through_release_order xs
   in go_through_release_order release_order
 
+let stockholm_release =
+  { internal = get_product_releases rel_stockholm
+  ; opensource = get_oss_releases None
+  ; internal_deprecated_since = None
+  }
+
 let naples_release =
   { internal = get_product_releases rel_naples
   ; opensource = get_oss_releases None
