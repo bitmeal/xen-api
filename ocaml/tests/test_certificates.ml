@@ -122,12 +122,14 @@ let invalid_keys_tests =
   invalid_private_keys
 
 let test_valid_cert cert time pkey () =
-  validate_certificate Leaf cert time pkey
+  let _leaf = validate_certificate Leaf cert time pkey in ()
 
 let test_invalid_cert cert time pkey error reason () =
   Alcotest.check_raises ""
     (server_error error reason)
-    (fun () -> validate_certificate Leaf cert time pkey)
+    (fun () ->
+      let _leaf = validate_certificate Leaf cert time pkey in ()
+    )
 
 let load_pkcs8 name =
   X509.Private_key.decode_pem (Cstruct.of_string (load_test_data name))
@@ -161,7 +163,9 @@ let test_corrupt_leaf_cert (cert_name, pkey_name, time, error, reason) =
   let test_cert = load_pkcs8 pkey_name >>| fun pkey ->
     let test () = Alcotest.check_raises ""
       (server_error error reason)
-      (fun () -> validate_certificate Leaf cert time pkey)
+      (fun () ->
+        let _leaf = validate_certificate Leaf cert time pkey in ()
+      )
     in
     test
   in
@@ -181,12 +185,15 @@ let invalid_leaf_cert_tests =
   List.map test_invalid_leaf_cert invalid_leaf_certificates
 
 let test_valid_cert_chain chain time pkey () =
-  validate_certificate Chain chain time pkey
+  let _leaf = validate_certificate Chain chain time pkey in ()
 
 let test_invalid_cert_chain cert time pkey error reason () =
   Alcotest.check_raises ""
     (server_error error reason)
-    (fun () -> validate_certificate Chain cert time pkey)
+    (fun () ->
+      let _:X509.Certificate.t = validate_certificate Chain cert time pkey in
+      ()
+    )
 
 let valid_chain_cert_tests =
   let time = time_of_rfc3339 "2020-02-01T00:00:00+00:00" in
