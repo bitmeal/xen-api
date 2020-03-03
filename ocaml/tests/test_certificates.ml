@@ -230,14 +230,14 @@ let hashables =
 
 let pp_hash_test =
   List.map (fun (hashable, expected) ->
-    let test_hash hashable repr () =
+    let test_hash () =
       let digest = Cstruct.of_string hashable
       |> Nocrypto.Hash.digest `SHA256
       in
       Alcotest.(check string) "fingerprints must match" expected (Certificates.pp_hash digest)
     in
     Printf.sprintf {|Validation of hash printing of "%s"|} hashable,
-    `Quick, Ok (test_hash hashable expected))
+    `Quick, Ok test_hash)
   hashables
 
 let load_test = function
