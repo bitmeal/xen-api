@@ -969,7 +969,7 @@ let host_query_ha = call ~flags:[`Session]
          ; param_doc="The server certificate, in PEM form"
          ; param_release=stockholm_release; param_default=None}
         ;{ param_type=String; param_name="private_key"
-         ; param_doc="The unecrypted private key used to sign the certificate, \
+         ; param_doc="The unencrypted private key used to sign the certificate, \
                       in PKCS#8 form"
          ; param_release=stockholm_release; param_default=None}
         ;{ param_type=String; param_name="certificate_chain"
